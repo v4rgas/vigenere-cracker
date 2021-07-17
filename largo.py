@@ -1,4 +1,4 @@
-from cifrado import codificador, decodificador
+from vigenere import encode, decode
 from string import ascii_uppercase
 
 
@@ -49,8 +49,8 @@ with open('text.csv', 'r') as text:
 clave = 'ABCEFGHIJ'
 clave = clave.upper()
 
-texto_codificado = codificador(mensaje=texto, clave=clave)
-texto_decodificado = decodificador(mensaje=texto_codificado, clave=clave)
+texto_codificado = encode(mensaje=texto, clave=clave)
+texto_decodificado = decode(mensaje=texto_codificado, clave=clave)
 
 lista_ordenada_trinomio, diccionario_tri = trinomio_finder(texto_codificado)
 lista_ordenada_binomio, diccioanrio_bi = binomio_finder(texto_codificado)
