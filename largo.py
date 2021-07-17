@@ -44,7 +44,6 @@ with open('text.csv', 'r') as text:
     texto = text.read()
     texto = texto.upper()
     texto = str([letra for letra in texto if letra in ascii_uppercase])
-    # print(texto)
 
 clave = 'ABCEFGHIJ'
 clave = clave.upper()
