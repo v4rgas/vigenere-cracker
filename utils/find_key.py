@@ -1,7 +1,5 @@
 from utils.vigenere import get_key, sort_by_frecuency
 
-
-
 def find_key(texto, largo_clave, lang):
 
     langs = {'ESP':'SRNDLC',
@@ -10,7 +8,7 @@ def find_key(texto, largo_clave, lang):
     frecuent_letters = langs[lang]
 
     # separa el texto en chuncks de tamaño largo_clave
-    chuncks = [[letra for index, letra in enumerate(texto) if (index)%(largo_clave) == numero] for numero in range(5)]  
+    chuncks = [[letra for index, letra in enumerate(texto) if (index)%(largo_clave) == numero] for numero in range(largo_clave)]  
 
     # limpio chuncks vacios
     chuncks = [chunck for chunck in chuncks if chunck]

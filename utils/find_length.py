@@ -1,59 +1,33 @@
 from utils.vigenere import sort_by_frecuency
-
-# def nomio_finder(texto_codificado: str, length: int) -> dict:
-#     diccionario = {}
-#     for index in range(0, len(texto_codificado) - (length - 1)):
-#         trinomio = texto_codificado[index:index + length]
-#         lista_llaves = list(diccionario.keys())
-#         if trinomio in lista_llaves:
-#             diccionario[trinomio] += 1
-#         else:
-#             diccionario[trinomio] = 1
-# 
-#     lista_aux = []
-#     for key in diccionario.keys():
-#         lista_aux.append((key, diccionario[key]))
-# 
-#     lista_aux = sorted(lista_aux, key=lambda x: x[1], reverse=True)
-# 
-#     return lista_aux, diccionario
+from collections import defaultdict
+from itertools import combinations
+from math import gcd
+from functools import reduce
 
 def nomio_finder(texto_codificado: str, length: int):
-    nomio_list = [texto_codificado[index:index + length] for index in range(len(texto_codificado) - length - 1)]
-    return sort_by_frecuency(nomio_list)
-    
-#Recibe el path del texto codificado y returna una lista con la (DISTANCA, FRECUENCIA)
+    nomio_dict = defaultdict(list)
+    for index in range(len(texto_codificado)):
+        nomio_dict[texto_codificado[index: index + length]].append(index)
+    return nomio_dict
+
+# Recibe el path del texto codificado y returna una lista con la (DISTANCA, FRECUENCIA)
 def find_lenght(texto_codificado):
-    lista_ordenada_trinomio = nomio_finder(texto_codificado, 3)[0:4]
-    lista_ordenada_binomio = nomio_finder(texto_codificado, 2)[0:4]
+    lista_ordenada = nomio_finder(texto_codificado, 3)
+    lista_ordenada.update(nomio_finder(texto_codificado, 2))
 
-    lista_ordenada = lista_ordenada_binomio + lista_ordenada_trinomio
+    indexes_distance = []
+    for indexes in lista_ordenada.values():
+        indexes_distance.extend([indexes[index + 1] - indexes[index]
+                                for index in range(len(indexes) - 1)])
 
-    diccionario_nomios = {}
-    for tupla in lista_ordenada:
-        nomio = tupla[0]
-        largo = len(nomio)
+    indexes_distance = sort_by_frecuency(indexes_distance)[:15]
+    divisores = []
 
-        lista_distancias = []
-        aux = 1
-        for index in range(len(texto_codificado)):
-            seccion_texto = texto_codificado[index:index + largo]
-            if seccion_texto == nomio:
-                lista_distancias.append(aux)
-                aux = 1
-            else:
-                aux += 1
+    lista_distancias = [tupla[0] for tupla in indexes_distance]
 
-        diccionario_nomios[nomio] = lista_distancias
-
-        diccionario_distancias = {}
-
-        for key in diccionario_nomios:
-            for distancia in diccionario_nomios[key]:
-                if distancia in diccionario_distancias.keys():
-                    diccionario_distancias[distancia] += 1
-                else:
-                    diccionario_distancias[distancia] = 1
-        
-        lista_ordenada = [item for item in diccionario_distancias.items()]
-        return sorted(lista_ordenada, key=lambda x: x[1], reverse=True)
+    for index in range(2, len(lista_distancias)):
+        for combination in combinations(lista_distancias, index):
+            divisores.append(reduce(gcd, combination))
+    
+    return sort_by_frecuency(divisores)
+    
