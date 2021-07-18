@@ -1,10 +1,5 @@
-from utils.vigenere import get_key
+from utils.vigenere import get_key, sort_by_frecuency
 
-#Devuelve una lista con tuplas, (CARACTER, FRECUENCIA) ordenadas de mayor frecuencia a menor
-def sort_by_frecuency(alist):
-    lista_frecuencia = [(char, alist.count(char)) for char in set(alist)]
-    lista_frecuencia.sort(key=lambda char: char[1], reverse=True)
-    return lista_frecuencia 
 
 
 def find_key(texto, largo_clave, lang):
@@ -14,7 +9,7 @@ def find_key(texto, largo_clave, lang):
 
     frecuent_letters = langs[lang]
 
-    # se para el texto en chuncks de tamaño largo_clave
+    # separa el texto en chuncks de tamaño largo_clave
     chuncks = [[letra for index, letra in enumerate(texto) if (index)%(largo_clave) == numero] for numero in range(5)]  
 
     # limpio chuncks vacios

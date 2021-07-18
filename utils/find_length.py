@@ -1,26 +1,31 @@
-def nomio_finder(texto_codificado: str, length: int) -> dict:
-    diccionario = {}
-    for index in range(0, len(texto_codificado) - (length - 1)):
-        trinomio = texto_codificado[index:index + length]
-        lista_llaves = list(diccionario.keys())
-        if trinomio in lista_llaves:
-            diccionario[trinomio] += 1
-        else:
-            diccionario[trinomio] = 1
+from utils.vigenere import sort_by_frecuency
 
-    lista_aux = []
-    for key in diccionario.keys():
-        lista_aux.append((key, diccionario[key]))
+# def nomio_finder(texto_codificado: str, length: int) -> dict:
+#     diccionario = {}
+#     for index in range(0, len(texto_codificado) - (length - 1)):
+#         trinomio = texto_codificado[index:index + length]
+#         lista_llaves = list(diccionario.keys())
+#         if trinomio in lista_llaves:
+#             diccionario[trinomio] += 1
+#         else:
+#             diccionario[trinomio] = 1
+# 
+#     lista_aux = []
+#     for key in diccionario.keys():
+#         lista_aux.append((key, diccionario[key]))
+# 
+#     lista_aux = sorted(lista_aux, key=lambda x: x[1], reverse=True)
+# 
+#     return lista_aux, diccionario
 
-    lista_aux = sorted(lista_aux, key=lambda x: x[1], reverse=True)
-
-    return lista_aux, diccionario
-
-
+def nomio_finder(texto_codificado: str, length: int):
+    nomio_list = [texto_codificado[index:index + length] for index in range(len(texto_codificado) - length - 1)]
+    return sort_by_frecuency(nomio_list)
+    
 #Recibe el path del texto codificado y returna una lista con la (DISTANCA, FRECUENCIA)
 def find_lenght(texto_codificado):
-    lista_ordenada_trinomio, diccionario_tri = nomio_finder(texto_codificado, 3)
-    lista_ordenada_binomio, diccioanrio_bi = nomio_finder(texto_codificado, 2)
+    lista_ordenada_trinomio = nomio_finder(texto_codificado, 3)
+    lista_ordenada_binomio = nomio_finder(texto_codificado, 2)
 
     lista_ordenada_trinomio = lista_ordenada_trinomio[0:4]
     lista_ordenada_binomio = lista_ordenada_binomio[0:4]

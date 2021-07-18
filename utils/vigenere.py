@@ -38,6 +38,11 @@ def get_key(encr_letter, deencr_letter):
 
     return alfabeto[diff]
     
+#Devuelve una lista con tuplas, (CARACTER, FRECUENCIA) ordenadas de mayor frecuencia a menor
+def sort_by_frecuency(alist):
+    lista_frecuencia = [(char, alist.count(char)) for char in set(alist)]
+    lista_frecuencia.sort(key=lambda char: char[1], reverse=True)
+    return lista_frecuencia 
 
 if __name__ == '__main__':
     print(ascii_uppercase)
