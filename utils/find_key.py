@@ -1,4 +1,5 @@
-from utils.vigenere import get_key, sort_by_frecuency
+from utils.vigenere import decode, get_key, sort_by_frecuency
+from fuzzywuzzy import fuzz
 
 def find_key(texto, largo_clave, lang):
 
@@ -16,11 +17,25 @@ def find_key(texto, largo_clave, lang):
     # busco frecuencia
     possible_key = ''
     for chunck in chuncks:
-        sorted_chunck = sort_by_frecuency(chunck)
-        most_frec_letter, _  = sorted_chunck[0]
-        possible_key_letter = get_key(most_frec_letter, frecuent_letters[0])
+        sorted_chunck = sort_by_frecuency(chunck)[:10]
         
-        possible_key+=possible_key_letter
+
+        max_similarity = 0
+        best_match = ''
+        for frec_letter, _ in sorted_chunck:
+            possible_key_letter = get_key(frec_letter, frecuent_letters[0])
+
+            letters = [letter for letter, _ in sorted_chunck]
+            letters = ''.join(map(lambda x: decode(x, possible_key_letter), letters))
+
+            ratio = fuzz.partial_ratio(''.join(letters), frecuent_letters)
+            
+            if ratio>max_similarity:
+                max_similarity = ratio
+                best_match = possible_key_letter
+        
+        possible_key+=best_match
+
 
     return possible_key
 

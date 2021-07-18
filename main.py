@@ -5,7 +5,7 @@ from utils.find_length import find_lenght
 from utils.vigenere import decode, encode
 
 if __name__ == '__main__':
-    CLAVE = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    CLAVE = 'ABCDEFGHIJKMNLOPQRSTUVWXYZ'
     print(len(CLAVE))
 
     with open('original_text.txt', 'r') as text:
