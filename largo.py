@@ -1,6 +1,6 @@
+from os import write
 from vigenere import encode, decode
 from string import ascii_uppercase
-
 
 def binomio_finder(text: str) -> dict:
     diccionario_binomio = {}
@@ -20,7 +20,6 @@ def binomio_finder(text: str) -> dict:
 
     return lista_aux, diccionario_binomio
 
-
 def trinomio_finder(text: str) -> dict:
     diccionario_trinomio = {}
     for index in range(0, len(texto_codificado) - 2):
@@ -39,22 +38,26 @@ def trinomio_finder(text: str) -> dict:
 
     return lista_aux, diccionario_trinomio
 
-
 with open('text.csv', 'r') as text:
     texto = text.read()
     texto = texto.upper()
-    texto = str([letra for letra in texto if letra in ascii_uppercase])
+    texto = ''.join([letra for letra in texto if letra in ascii_uppercase])
 
-clave = 'ABCEFGHIJ'
+clave = 'ABCD'
 clave = clave.upper()
 
 texto_codificado = encode(mensaje=texto, clave=clave)
+
+with open('example_text.txt', 'w') as f:
+    f.write(texto_codificado)
+
 texto_decodificado = decode(mensaje=texto_codificado, clave=clave)
+
+with open('texto_decod.txt', 'w') as f:
+    f.write(texto_decodificado)
 
 lista_ordenada_trinomio, diccionario_tri = trinomio_finder(texto_codificado)
 lista_ordenada_binomio, diccioanrio_bi = binomio_finder(texto_codificado)
-
-# print(lista_ordenada_trinomio)
 
 lista_ordenada_trinomio = lista_ordenada_trinomio[0:5]
 lista_ordenada_binomio = lista_ordenada_binomio[0:5]
@@ -78,5 +81,13 @@ for tupla in lista_ordenada:
 
     diccionario_nomios[nomio] = lista_distancias
 
+    diccionario_distancias = {}
 
-print(diccionario_nomios)
+    for key in diccionario_nomios:
+        for distancia in diccionario_nomios[key]:
+            if distancia in diccionario_distancias.keys():
+                diccionario_distancias[distancia] += 1
+            else:
+                diccionario_distancias[distancia] = 1
+
+print(diccionario_distancias)
