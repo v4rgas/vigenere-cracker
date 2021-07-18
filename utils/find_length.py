@@ -24,11 +24,8 @@ def nomio_finder(texto_codificado: str, length: int):
     
 #Recibe el path del texto codificado y returna una lista con la (DISTANCA, FRECUENCIA)
 def find_lenght(texto_codificado):
-    lista_ordenada_trinomio = nomio_finder(texto_codificado, 3)
-    lista_ordenada_binomio = nomio_finder(texto_codificado, 2)
-
-    lista_ordenada_trinomio = lista_ordenada_trinomio[0:4]
-    lista_ordenada_binomio = lista_ordenada_binomio[0:4]
+    lista_ordenada_trinomio = nomio_finder(texto_codificado, 3)[0:4]
+    lista_ordenada_binomio = nomio_finder(texto_codificado, 2)[0:4]
 
     lista_ordenada = lista_ordenada_binomio + lista_ordenada_trinomio
 
