@@ -1,7 +1,7 @@
 from string import ascii_lowercase, ascii_uppercase
 
 from utils.find_key import find_key
-from utils.find_length import find_lenght
+from utils.find_length import find_length
 from utils.vigenere import decode, encode
 
 
@@ -14,7 +14,7 @@ def letras_iguales(palabra_1, palabra_2):
 
 
 if __name__ == '__main__':
-    CLAVE = 'FSDAHJIKFDASDSADSADSADSADSADFASDREWXFCDGDFDGFDGFDGERDHSAJKDASHDJKASBJWKDABNSDKANSDQOWJHDNASLKJDASHNASLKDADKS'
+    CLAVE = 'FSDAHJIKFDASDSADSADSADSADSADFASDREWXFCDGDF'
     print(len(CLAVE))
 
     with open('original_text.txt', 'r') as text:
@@ -27,7 +27,7 @@ if __name__ == '__main__':
     with open('encoded_text.txt', 'w') as f:
         f.write(texto_codificado)
 
-    largos_posibles = find_lenght(texto_codificado)
+    largos_posibles = find_length(texto_codificado)
     print(largos_posibles)
     clave = find_key(texto_codificado, largo_clave=len(CLAVE), lang='ENG')
     print(clave, letras_iguales(clave, CLAVE))

@@ -15,7 +15,7 @@ def nomio_finder(texto_codificado: str, length: int):
 # Recibe el path del texto codificado y returna una lista con la (DISTANCA, FRECUENCIA)
 
 
-def find_lenght(texto_codificado):
+def find_length(texto_codificado):
     lista_ordenada = nomio_finder(texto_codificado, 3)
     lista_ordenada.update(nomio_finder(texto_codificado, 2))
 
