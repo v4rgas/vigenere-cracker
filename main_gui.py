@@ -17,6 +17,7 @@ if __name__ == "__main__":
 
     backend.senal_add_to_table.connect(frontend.add_to_table)
     backend.senal_set_text.connect(frontend.set_text)
+    backend.senal_set_recomended.connect(frontend.set_recomended)
     
     ret = APP.exec_()
     sys.exit(ret)

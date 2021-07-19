@@ -28,6 +28,8 @@ class VentanaPrincipal(QWidget):
         self.show()
     
     def init_ui(self):
+        self.setWindowTitle('Rompiendo codificación Vigenere')
+        
         self.main_vbox = QVBoxLayout()
         self.setLayout(self.main_vbox)
         
@@ -68,16 +70,19 @@ class VentanaPrincipal(QWidget):
 
         self.main_vbox.addWidget(self.tabla_largo)
 
+        self.label5 = QLabel('Largo recomendado:', self)
+        self.main_vbox.addWidget(self.label5)
+
         self.largo_box = QComboBox()
         self.main_vbox.addWidget(self.largo_box)
 
         low_hbox = QHBoxLayout()
 
-        self.label5 = QLabel(self, text='PASO 3:')
-        self.main_vbox.addWidget(self.label5)
+        self.label6 = QLabel(self, text='PASO 3:')
+        self.main_vbox.addWidget(self.label6)
 
-        self.label6 = QLabel(self, text='Encuentra clave:')
-        low_hbox.addWidget(self.label6)
+        self.label7 = QLabel(self, text='Encuentra clave:')
+        low_hbox.addWidget(self.label7)
 
         self.button3 = QPushButton('Click Aca')
         self.button3.clicked.connect(self.start_find_key)
@@ -130,6 +135,8 @@ class VentanaPrincipal(QWidget):
         self.message_box.setText(texto)
         self.message_box.exec_()
 
+    def set_recomended(self, texto):
+        self.largo_box.setCurrentText(texto)
 
             
 

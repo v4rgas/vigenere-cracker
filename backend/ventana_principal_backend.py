@@ -6,10 +6,13 @@ from utils.find_key import find_key
 from utils.find_length import find_length
 from utils.vigenere import decode
 
+
 class VentanaPrincipalBackend(QObject):
     senal_add_to_table = pyqtSignal(list)
     senal_pop_up = pyqtSignal(str)
     senal_set_text = pyqtSignal(str)
+    senal_set_recomended = pyqtSignal(str)
+
     def __init__(self):
         super().__init__()
         self.texto_codificado = ''
@@ -17,7 +20,7 @@ class VentanaPrincipalBackend(QObject):
         self.largos_posibles = []
 
     def set_file(self, path):
-        self.senal_add_to_table.emit([(0,0) for _ in range(4)])
+        self.senal_add_to_table.emit([(0, 0) for _ in range(4)])
         self.senal_set_text.emit('')
         self.texto_codificado = ''
         self.clave_encontrada = ''
@@ -32,35 +35,46 @@ class VentanaPrincipalBackend(QObject):
 
     def find_length(self):
         if self.texto_codificado:
-           self.largos_posibles = find_length(self.texto_codificado)
-           self.senal_add_to_table.emit(self.largos_posibles)
+            self.largos_posibles = find_length(self.texto_codificado)
+            self.senal_add_to_table.emit(self.largos_posibles)
+            
+            self.senal_set_recomended.emit(self.len_factible())
 
         else:
             self.senal_pop_up.emit('Se requiere un un texto para decodificar')
 
-    def start_find_key(self,largo):
+    def start_find_key(self, largo):
         thread = Thread(target=self.find_key, args=(largo,))
         thread.start()
 
     def find_key(self, largo):
-        if self.texto_codificado and largo<0:
-            self.clave_encontrada = find_key(self.texto_codificado, largo_clave=largo, lang='ENG')
+        if self.texto_codificado and largo > 0:
+            self.clave_encontrada = find_key(
+                self.texto_codificado, largo_clave=largo, lang='ENG')
             self.senal_set_text.emit(self.clave_encontrada)
-        
-        if not self.texto_codificado:
-            self.senal_pop_up.emit('Se requiere un un texto para decodificar')
+        else:
+            if not self.texto_codificado:
+                self.senal_pop_up.emit(
+                    'Se requiere un un texto para decodificar')
 
-        if largo<1:
-            self.senal_pop_up.emit('Necesitas introducir o generar una clave')
-        
+            if largo < 1:
+                self.senal_pop_up.emit(
+                    'Necesitas introducir o generar una clave')
+                self.senal_set_text.emit('')
 
     def decodificar(self):
         if self.clave_encontrada:
-            texto_decodificado = decode(self.texto_codificado, self.clave_encontrada)
+            texto_decodificado = decode(
+                self.texto_codificado, self.clave_encontrada)
             with open('decoded_text.txt', 'w') as f:
                 f.write(texto_decodificado)
         else:
             self.senal_pop_up.emit('Debes completar pasos previos')
-            
     
-        
+    def len_factible(self):
+        largos_factibles = []
+        for index in range(len(self.largos_posibles)):
+            largos_factibles.append(self.largos_posibles[index])
+            if not self.largos_posibles[index][1] < self.largos_posibles[index + 1][1] * 18:
+                break
+        return str(max(largos_factibles)[0])

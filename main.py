@@ -29,7 +29,16 @@ if __name__ == '__main__':
 
     largos_posibles = find_length(texto_codificado)
     print(largos_posibles)
-    clave = find_key(texto_codificado, largo_clave=len(CLAVE), lang='ENG')
+    largos_factibles = []
+    for index in range(len(largos_posibles)):
+        largos_factibles.append(largos_posibles[index])
+        if not largos_posibles[index][1] < largos_posibles[index + 1][1] * 18:
+            break
+
+    largo = max(largos_factibles)[0]
+    print(f'Grado de verdad del largo que se dedujo: {largo == len(CLAVE)}')
+
+    clave = find_key(texto_codificado, largo_clave=largo, lang='ENG')
     print(clave, letras_iguales(clave, CLAVE))
 
     texto_decodificado_teoria = decode(mensaje=texto_codificado, clave=clave)
