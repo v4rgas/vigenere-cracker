@@ -24,6 +24,7 @@ class VentanaPrincipal(QWidget):
     senal_find_length = pyqtSignal()
     senal_find_key = pyqtSignal(int)
     senal_decodificar = pyqtSignal()
+    senal_change_lang = pyqtSignal(str)
 
     def __init__(self):
         super().__init__()
@@ -49,6 +50,18 @@ class VentanaPrincipal(QWidget):
         top_hbox.addWidget(self.boton_elige_archivo)
 
         self.main_vbox.addLayout(top_hbox)
+
+        language_hbox = QHBoxLayout()
+        self.label_idiomas = QLabel(
+            self, text='Elige un idioma para intentar decodificar')
+        language_hbox.addWidget(self.label_idiomas)
+
+        self.language_box = QComboBox()
+        self.language_box.addItems(['Ingles', 'Español'])
+        self.language_box.currentIndexChanged.connect(self.change_lang)
+        language_hbox.addWidget(self.language_box)
+
+        self.main_vbox.addLayout(language_hbox)
 
         mid_hbox = QHBoxLayout()
 
@@ -104,6 +117,10 @@ class VentanaPrincipal(QWidget):
         self.message_box.setWindowTitle('ERROR')
         self.message_box.setText("------------")
         self.message_box.setIcon(QMessageBox.Critical)
+
+    def change_lang(self):
+        langs = {'Español': 'ESP', 'Ingles': 'ENG'}
+        self.senal_change_lang.emit(langs[self.language_box.currentText()])
 
     def browsefiles(self, *args):
         fname, _ = QFileDialog.getOpenFileName(self,

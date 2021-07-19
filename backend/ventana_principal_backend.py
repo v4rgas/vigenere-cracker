@@ -25,6 +25,11 @@ class VentanaPrincipalBackend(QObject):
         self.clave_encontrada = ''
         self.largos_posibles = []
         self.file_path = ''
+        self.lang = 'ENG'
+
+    def change_lang(self, lang):
+        self.lang = lang
+        print(lang)
 
     def set_file(self, path):
         self.senal_boton_decodificar.emit(False)
@@ -71,7 +76,7 @@ class VentanaPrincipalBackend(QObject):
 
         if self.texto_codificado and largo > 0:
             self.clave_encontrada = find_key(
-                self.texto_codificado, largo_clave=largo, lang='ENG')
+                self.texto_codificado, largo_clave=largo, lang=self.lang)
             self.senal_set_text.emit(self.clave_encontrada)
         else:
             if not self.texto_codificado:
