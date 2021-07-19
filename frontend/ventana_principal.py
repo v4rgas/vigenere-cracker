@@ -51,6 +51,9 @@ class VentanaPrincipal(QWidget):
 
         self.main_vbox.addLayout(top_hbox)
 
+        self.label_paso2 = QLabel(self, text='PASO 2:')
+        self.main_vbox.addWidget(self.label_paso2)
+
         language_hbox = QHBoxLayout()
         self.label_idiomas = QLabel(
             self, text='Elige un idioma para intentar decodificar')
@@ -65,8 +68,8 @@ class VentanaPrincipal(QWidget):
 
         mid_hbox = QHBoxLayout()
 
-        self.label_paso2 = QLabel(self, text='PASO 2:')
-        self.main_vbox.addWidget(self.label_paso2)
+        self.label_paso3 = QLabel(self, text='PASO 3:')
+        self.main_vbox.addWidget(self.label_paso3)
 
         self.label_encuentra_largo = QLabel(self, text='Encuentra el largo:')
         mid_hbox.addWidget(self.label_encuentra_largo)
@@ -94,8 +97,8 @@ class VentanaPrincipal(QWidget):
 
         low_hbox = QHBoxLayout()
 
-        self.label_paso3 = QLabel(self, text='PASO 3:')
-        self.main_vbox.addWidget(self.label_paso3)
+        self.label_paso4 = QLabel(self, text='PASO 4:')
+        self.main_vbox.addWidget(self.label_paso4)
 
         self.label_encuentra_clave = QLabel(self, text='Encuentra clave:')
         low_hbox.addWidget(self.label_encuentra_clave)
