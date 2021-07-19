@@ -1,5 +1,5 @@
-decoded_text.txt
-encoded_text.txt
+*.txt
+!original_text.txt
 
 # Byte-compiled / optimized / DLL files
 
