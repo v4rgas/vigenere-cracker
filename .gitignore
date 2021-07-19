@@ -2,10 +2,6 @@
 !original_text.txt
 !requirements.txt
 
-build/build
-build/dist
-build/main_gui.spec
-
 # Byte-compiled / optimized / DLL files
 
 __pycache__/
