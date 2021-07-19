@@ -1,8 +1,10 @@
-from PyQt5.QtCore import QObject, pyqtSignal
-from utils.find_length import find_length
-from utils.find_key import find_key
-from utils.vigenere import decode
 from threading import Thread
+
+from PyQt5.QtCore import QObject, pyqtSignal
+
+from utils.find_key import find_key
+from utils.find_length import find_length
+from utils.vigenere import decode
 
 class VentanaPrincipalBackend(QObject):
     senal_add_to_table = pyqtSignal(list)

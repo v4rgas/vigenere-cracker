@@ -1,7 +1,9 @@
-from frontend.ventana_principal import VentanaPrincipal
-from backend.ventana_principal_backend import VentanaPrincipalBackend
 import sys
+
 from PyQt5.QtWidgets import QApplication
+
+from backend.ventana_principal_backend import VentanaPrincipalBackend
+from frontend.ventana_principal import VentanaPrincipal
 if __name__ == "__main__":
     APP = QApplication(sys.argv)
 
@@ -16,10 +18,5 @@ if __name__ == "__main__":
     backend.senal_add_to_table.connect(frontend.add_to_table)
     backend.senal_set_text.connect(frontend.set_text)
     
-
-    
-
-    
-
     ret = APP.exec_()
     sys.exit(ret)

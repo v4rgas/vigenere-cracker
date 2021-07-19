@@ -1,7 +1,21 @@
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QComboBox, QHBoxLayout, QLabel, QLineEdit, QPushButton, QTableWidget, QVBoxLayout, QWidget, QApplication, QFileDialog, QTableWidgetItem, QHeaderView, QMessageBox
-
 import sys
+
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import (
+    QApplication,
+    QComboBox,
+    QFileDialog,
+    QHBoxLayout,
+    QHeaderView,
+    QLabel,
+    QLineEdit,
+    QMessageBox,
+    QPushButton,
+    QTableWidget,
+    QTableWidgetItem,
+    QVBoxLayout,
+    QWidget,
+)
 
 class VentanaPrincipal(QWidget):
     senal_set_file = pyqtSignal(str)
