@@ -1,5 +1,6 @@
 *.txt
 !original_text.txt
+!requirements.txt
 
 # Byte-compiled / optimized / DLL files
 
