@@ -57,7 +57,7 @@ def get_key(encr_letter, deencr_letter):
 
 def most_probable_length(largos_posibles):
     largos_factibles = []
-    for index in range(len(largos_posibles)):
+    for index in range(len(largos_posibles) - 1):
         largos_factibles.append(largos_posibles[index])
         if largos_posibles[index][1] >= largos_posibles[index + 1][1] * 18:
             break

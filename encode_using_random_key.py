@@ -4,9 +4,9 @@ from string import ascii_uppercase
 from utils.vigenere import encode
 
 if __name__ == '__main__':
-    KEY_LENGTH = randint(4, 40)
+    KEY_LENGTH = randint(4, 400)
     clave = ''.join(choice(ascii_uppercase) for _ in range(KEY_LENGTH))
-    print('LA CLAVE UTILIZADA ES:', clave)
+    print('LA CLAVE UTILIZADA ES:', clave, len(clave))
 
     with open('original_text.txt', 'r') as text:
         texto = text.read()
