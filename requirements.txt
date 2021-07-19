@@ -1,2 +1,3 @@
 fuzzywuzzy==0.18.0
+PyInstaller==4.4
 PyQt5==5.15.4
