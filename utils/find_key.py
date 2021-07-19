@@ -29,7 +29,7 @@ def find_key(texto, largo_clave, lang):
                 possible_key_letter = get_key(frec_letter, frecuent_letter)
                 letters = [letter for letter, _ in sorted_chunck]
                 letters = ''.join(
-                    map(lambda x: decode(x, possible_key_letter), letters))
+                    map(lambda x: decode(x, possible_key_letter)[1], letters))
                 ratio = fuzz.ratio(''.join(letters), frecuent_letters)
 
                 if ratio > max_similarity:
@@ -39,8 +39,3 @@ def find_key(texto, largo_clave, lang):
         possible_key += best_match
 
     return possible_key
-
-
-if __name__ == '__main__':
-    # with open()
-    pass

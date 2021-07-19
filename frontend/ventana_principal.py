@@ -1,4 +1,5 @@
 import sys
+from ntpath import basename
 
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import (
@@ -17,47 +18,49 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
+
 class VentanaPrincipal(QWidget):
     senal_set_file = pyqtSignal(str)
     senal_find_length = pyqtSignal()
     senal_find_key = pyqtSignal(int)
     senal_decodificar = pyqtSignal()
+
     def __init__(self):
         super().__init__()
         self.init_ui()
+
         self.show()
-    
+
     def init_ui(self):
         self.setWindowTitle('Rompiendo codificación Vigenere')
-        
+
         self.main_vbox = QVBoxLayout()
         self.setLayout(self.main_vbox)
-        
+
         top_hbox = QHBoxLayout()
-        self.label0 = QLabel(self, text='PASO 1:')
-        self.main_vbox.addWidget(self.label0)
+        self.label_paso1 = QLabel(self, text='PASO 1:')
+        self.main_vbox.addWidget(self.label_paso1)
 
-        self.label1 = QLabel(self, text='Elige un archivo')
-        top_hbox.addWidget(self.label1)
-        
-        self.button1 = QPushButton('Click Aca')
-        self.button1.clicked.connect(self.browsefiles)
-        top_hbox.addWidget(self.button1)
-        
+        self.label_elige_archivo = QLabel(self, text='Elige un archivo')
+        top_hbox.addWidget(self.label_elige_archivo)
+
+        self.boton_elige_archivo = QPushButton('Click Aca')
+        self.boton_elige_archivo.clicked.connect(self.browsefiles)
+        top_hbox.addWidget(self.boton_elige_archivo)
+
         self.main_vbox.addLayout(top_hbox)
-
 
         mid_hbox = QHBoxLayout()
 
-        self.label3 = QLabel(self, text='PASO 2:')
-        self.main_vbox.addWidget(self.label3)
+        self.label_paso2 = QLabel(self, text='PASO 2:')
+        self.main_vbox.addWidget(self.label_paso2)
 
-        self.label4 = QLabel(self, text='Encuentra el largo:')
-        mid_hbox.addWidget(self.label4)
-        
-        self.button2 = QPushButton('Click Aca')
-        self.button2.clicked.connect(self.start_find_length)
-        mid_hbox.addWidget(self.button2)
+        self.label_encuentra_largo = QLabel(self, text='Encuentra el largo:')
+        mid_hbox.addWidget(self.label_encuentra_largo)
+
+        self.boton_encuentra_largo = QPushButton('Click Aca')
+        self.boton_encuentra_largo.clicked.connect(self.start_find_length)
+        mid_hbox.addWidget(self.boton_encuentra_largo)
         self.main_vbox.addLayout(mid_hbox)
 
         self.tabla_largo = QTableWidget()
@@ -70,55 +73,54 @@ class VentanaPrincipal(QWidget):
 
         self.main_vbox.addWidget(self.tabla_largo)
 
-        self.label5 = QLabel('Largo recomendado:', self)
-        self.main_vbox.addWidget(self.label5)
+        self.label_largo_recomendado = QLabel('Largo recomendado:', self)
+        self.main_vbox.addWidget(self.label_largo_recomendado)
 
         self.largo_box = QComboBox()
         self.main_vbox.addWidget(self.largo_box)
 
         low_hbox = QHBoxLayout()
 
-        self.label6 = QLabel(self, text='PASO 3:')
-        self.main_vbox.addWidget(self.label6)
+        self.label_paso3 = QLabel(self, text='PASO 3:')
+        self.main_vbox.addWidget(self.label_paso3)
 
-        self.label7 = QLabel(self, text='Encuentra clave:')
-        low_hbox.addWidget(self.label7)
+        self.label_encuentra_clave = QLabel(self, text='Encuentra clave:')
+        low_hbox.addWidget(self.label_encuentra_clave)
 
-        self.button3 = QPushButton('Click Aca')
-        self.button3.clicked.connect(self.start_find_key)
-        low_hbox.addWidget(self.button3)
+        self.boton_encuentra_key = QPushButton('Click Aca')
+        self.boton_encuentra_key.clicked.connect(self.start_find_key)
+        low_hbox.addWidget(self.boton_encuentra_key)
         self.main_vbox.addLayout(low_hbox)
 
         self.entry_clave = QLineEdit('')
         self.main_vbox.addWidget(self.entry_clave)
-        
+
         self.boton_decodificar = QPushButton('Decodificar')
-        self.boton_decodificar.clicked.connect(lambda: self.senal_decodificar.emit())
+        self.boton_decodificar.clicked.connect(
+            lambda: self.senal_decodificar.emit())
         self.main_vbox.addWidget(self.boton_decodificar)
 
-
-        self.message_box= QMessageBox(self)
+        self.message_box = QMessageBox(self)
         self.message_box.setWindowTitle('ERROR')
         self.message_box.setText("------------")
         self.message_box.setIcon(QMessageBox.Critical)
 
     def browsefiles(self, *args):
         fname, _ = QFileDialog.getOpenFileName(self,
-            'Open file',"QFileDialog.getOpenFileName()",
-            'Text (*.txt)')
+                                               'Open file', '',
+                                               'Text (*.txt)')
         self.senal_set_file.emit(fname)
-        
+        self.label_elige_archivo.setText(basename(fname))
+        self.label_elige_archivo.setStyleSheet('color: green;')
+
     def start_find_length(self, *args):
-        self.button2.setEnabled(False)
         self.senal_find_length.emit()
 
     def start_find_key(self, *args):
-        self.button3.setEnabled(False)
         self.senal_find_key.emit(int(self.largo_box.currentText()))
 
     def add_to_table(self, tuple_list):
         self.largo_box.clear()
-        self.button2.setEnabled(True)
         for index, tupla in enumerate(tuple_list):
             distance, frec = tupla
 
@@ -128,7 +130,6 @@ class VentanaPrincipal(QWidget):
             self.largo_box.addItem(str(distance))
 
     def set_text(self, text):
-        self.button3.setEnabled(True)
         self.entry_clave.setText(text)
 
     def pop_up(self, texto):
@@ -138,7 +139,6 @@ class VentanaPrincipal(QWidget):
     def set_recomended(self, texto):
         self.largo_box.setCurrentText(texto)
 
-            
 
 if __name__ == "__main__":
     APP = QApplication(sys.argv)
