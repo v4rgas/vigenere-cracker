@@ -33,20 +33,23 @@ class VentanaPrincipalBackend(QObject):
 
     def set_file(self, path):
         self.senal_boton_decodificar.emit(False)
+        if path:
 
-        self.senal_add_to_table.emit([(0, 0) for _ in range(4)])
-        self.senal_set_text.emit('')
-        self.texto_codificado = ''
-        self.clave_encontrada = ''
-        self.largos_posibles = []
-        self.file_path = ''
+            self.senal_add_to_table.emit([(0, 0) for _ in range(4)])
+            self.senal_set_text.emit('')
+            self.texto_codificado = ''
+            self.clave_encontrada = ''
+            self.largos_posibles = []
+            self.file_path = ''
 
-        with open(path) as file:
-            self.file_path = path
-            self.texto_codificado = file.read()
-            self.texto_codificado = ''.join(
-                [letter.upper() for letter in self.texto_codificado if letter.isalpha()])
+            with open(path) as file:
+                self.file_path = path
+                self.texto_codificado = file.read()
+                self.texto_codificado = ''.join(
+                    [letter.upper() for letter in self.texto_codificado if letter.isalpha()])
 
+        else:
+            self.senal_pop_up.emit('Debes elegir un archivo')
         self.senal_boton_decodificar.emit(True)
 
     def start_find_length(self):
@@ -103,7 +106,7 @@ class VentanaPrincipalBackend(QObject):
                 f.write(texto_decodificado)
         else:
             if not path.exists(self.file_path):
-                self.senal_pop_up.emit('ARCHIVO DEJO DE EXISTIR')
+                self.senal_pop_up.emit('Necesitas elegir un archivo')
             else:
                 self.senal_pop_up.emit('Debes completar pasos previos')
         self.senal_boton_decodificar.emit(True)

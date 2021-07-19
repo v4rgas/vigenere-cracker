@@ -80,6 +80,7 @@ class VentanaPrincipal(QWidget):
         self.main_vbox.addLayout(mid_hbox)
 
         self.tabla_largo = QTableWidget()
+        self.tabla_largo.setEditTriggers(QTableWidget.NoEditTriggers)
         self.tabla_largo.setRowCount(4)
         self.tabla_largo.setColumnCount(2)
         self.tabla_largo.setHorizontalHeaderLabels(['Distancia', 'Frecuencia'])
@@ -109,6 +110,7 @@ class VentanaPrincipal(QWidget):
         self.main_vbox.addLayout(low_hbox)
 
         self.entry_clave = QLineEdit('')
+        self.entry_clave.setReadOnly(True)
         self.main_vbox.addWidget(self.entry_clave)
 
         self.boton_decodificar = QPushButton('Decodificar')
@@ -137,7 +139,12 @@ class VentanaPrincipal(QWidget):
         self.senal_find_length.emit()
 
     def start_find_key(self, *args):
-        self.senal_find_key.emit(int(self.largo_box.currentText()))
+        texto = self.largo_box.currentText()
+        if texto.isnumeric():
+            self.senal_find_key.emit(int(texto))
+
+        else:
+            self.pop_up('Necesitas calcular un largo')
 
     def add_to_table(self, tuple_list):
         self.largo_box.clear()
@@ -162,8 +169,6 @@ class VentanaPrincipal(QWidget):
 
 if __name__ == "__main__":
     APP = QApplication(sys.argv)
-
     GUI = VentanaPrincipal()
-
     ret = APP.exec_()
     sys.exit(ret)

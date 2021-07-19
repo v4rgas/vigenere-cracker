@@ -1,5 +1,5 @@
 from random import choice, randint
-from string import ascii_lowercase, ascii_uppercase
+from string import ascii_uppercase
 
 from utils.vigenere import encode
 
