@@ -4,10 +4,10 @@ from utils.vigenere import decode, encode, most_probable_length
 
 
 def letras_iguales(palabra_1, palabra_2):
-    cantidad_iguales = 0
-    for letra_1, letra_2 in zip(palabra_1, palabra_2):
-        if letra_1 == letra_2:
-            cantidad_iguales += 1
+    cantidad_iguales = sum(
+        letra_1 == letra_2 for letra_1, letra_2 in zip(palabra_1, palabra_2)
+    )
+
     return cantidad_iguales/len(palabra_1)
 
 

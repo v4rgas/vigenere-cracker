@@ -59,7 +59,7 @@ def most_probable_length(largos_posibles):
     largos_factibles = []
     for index in range(len(largos_posibles)):
         largos_factibles.append(largos_posibles[index])
-        if not largos_posibles[index][1] < largos_posibles[index + 1][1] * 18:
+        if largos_posibles[index][1] >= largos_posibles[index + 1][1] * 18:
             break
 
     return max(largos_factibles)[0]

@@ -32,6 +32,7 @@ class VentanaPrincipalBackend(QObject):
         print(lang)
 
     def set_file(self, path):
+        # sourcery skip: comprehension-to-generator, extract-method
         self.senal_boton_decodificar.emit(False)
         if path:
 
@@ -104,11 +105,10 @@ class VentanaPrincipalBackend(QObject):
                 texto, self.clave_encontrada)
             with open('decoded_text.txt', 'w') as f:
                 f.write(texto_decodificado)
+        elif not path.exists(self.file_path):
+            self.senal_pop_up.emit('Necesitas elegir un archivo')
         else:
-            if not path.exists(self.file_path):
-                self.senal_pop_up.emit('Necesitas elegir un archivo')
-            else:
-                self.senal_pop_up.emit('Debes completar pasos previos')
+            self.senal_pop_up.emit('Debes completar pasos previos')
         self.senal_boton_decodificar.emit(True)
 
     def most_probable_length(self):
