@@ -1,6 +1,7 @@
 *.txt
 !original_text.txt
 !requirements.txt
+!moby.txt
 
 # Byte-compiled / optimized / DLL files
 
