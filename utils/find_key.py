@@ -11,8 +11,11 @@ def find_key(texto, largo_clave, lang):
     frecuent_letters = langs[lang][:6]
 
     # separa el texto en chuncks de tamaño largo_clave
-    chuncks = [[letra for index, letra in enumerate(texto) if (index) % (
-        largo_clave) == numero] for numero in range(largo_clave)]
+    chuncks = [[] for _ in range(largo_clave)]
+    index = 0
+    for letra in texto:
+        chuncks[index].append(letra)
+        index = (index+1) % largo_clave
 
     # limpio chuncks vacios
     chuncks = [chunck for chunck in chuncks if chunck]
