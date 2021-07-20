@@ -12,7 +12,7 @@ def letras_iguales(palabra_1, palabra_2):
 
 
 if __name__ == '__main__':
-    CLAVE = 'HOLARATONASDAJKDKSADJASHD'
+    CLAVE = 'HOLARATONASDAJKDKSADJASHDAAADFBSLFBKJFBHJASDBSDJNSADKJASD'
     print(len(CLAVE))
 
     with open('original_text.txt', 'r') as text:

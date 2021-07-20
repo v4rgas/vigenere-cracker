@@ -1,6 +1,7 @@
 from fuzzywuzzy import fuzz
 
 from utils.vigenere import decode, get_key, sort_by_frecuency
+from time import time
 
 
 def find_key(texto, largo_clave, lang):
@@ -25,6 +26,7 @@ def find_key(texto, largo_clave, lang):
     for chunck in chuncks:
         sorted_chunck = sort_by_frecuency(chunck)[:len(frecuent_letters)]
 
+        start = time()
         max_similarity = 0
         best_match = ''
         for frec_letter, _ in sorted_chunck:
@@ -40,5 +42,6 @@ def find_key(texto, largo_clave, lang):
                     best_match = possible_key_letter
 
         possible_key += best_match
+        print(time()-start)
 
     return possible_key
