@@ -12,7 +12,7 @@ def letras_iguales(palabra_1, palabra_2):
 
 
 if __name__ == '__main__':
-    CLAVE = 'HOLARATONASDAJKDKSADJASHDSAKLJDASOIDJASKLDJQWEOOIASDSAJ'
+    CLAVE = 'HOLARATONASD'
     METHOD = 'cindex'
     print(len(CLAVE))
 
@@ -21,20 +21,21 @@ if __name__ == '__main__':
 
     texto_codificado, all_caps_text = encode(mensaje=texto, clave=CLAVE)
 
-    with open('encoded_text.txt2', 'w') as f:
+    with open('encoded_text.txt', 'w') as f:
         f.write(texto_codificado)
 
     largos_posibles = find_length(all_caps_text, method=METHOD)
-    print(largos_posibles)
 
     if METHOD == 'gcd':
         largo = most_probable_length(largos_posibles)
-        print(f'Grado de verdad del largo que se dedujo: {largo == len(CLAVE)}')
+    else:
+        largo = largos_posibles
+
+    print('Largo final:', largo)
 
     clave = find_key(all_caps_text, largo_clave=largo, lang='ENG')
     print(clave, letras_iguales(clave, CLAVE))
 
     texto_decodificado, _ = decode(mensaje=texto_codificado, clave=clave)
     with open('decoded_text.txt', 'w') as f:
-        print('escribiendo')
         f.write(texto_decodificado)

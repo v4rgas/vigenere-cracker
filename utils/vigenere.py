@@ -55,20 +55,30 @@ def get_key(encr_letter, deencr_letter):
     return alfabeto[diff]
 
 
-def most_probable_length(largos_posibles, tolerancia = 0.25):
+def most_probable_length(largos_posibles, tolerancia = 0.05):
 
     lista_factibles = []
     for index in range(len(largos_posibles) - 1):
         num, frec = largos_posibles[index]
         _, frec2 = largos_posibles[index+1]
 
-        if tolerancia < frec2 / frec:
+        if tolerancia > frec2 / frec:
             lista_factibles.append(num)
+            break
     
     if lista_factibles:
         return max(lista_factibles)
 
     return largos_posibles[0][0]
+
+# def most_probable_length(largos_posibles):
+#     largos_factibles = []
+#     for index in range(len(largos_posibles) - 1):
+#         largos_factibles.append(largos_posibles[index])
+#         if largos_posibles[index][1] >= largos_posibles[index + 1][1] * 18:
+#             break
+
+#     return max(largos_factibles)[0]
 
 # Devuelve una lista con tuplas, (CARACTER, FRECUENCIA) ordenadas de mayor frecuencia a menor
 

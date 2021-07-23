@@ -2,6 +2,7 @@ from collections import defaultdict
 from functools import reduce
 from itertools import combinations
 from math import gcd
+from functools import lru_cache
 
 from utils.vigenere import sort_by_frecuency
 
@@ -13,8 +14,7 @@ def nomio_finder(texto_codificado: str, length: int):
     return nomio_dict
 
 # Recibe el path del texto codificado y returna una lista con la (DISTANCA, FRECUENCIA)
-
-
+@lru_cache(maxsize=None)
 def gcd_method(texto_codificado):
     lista_ordenada = nomio_finder(texto_codificado, 3)
     lista_ordenada.update(nomio_finder(texto_codificado, 2))
@@ -38,7 +38,7 @@ def gcd_method(texto_codificado):
 
     return sort_by_frecuency(divisores)
 
-
+@lru_cache(maxsize=None)
 def coincidence_index(group_letters: list) -> float:
 
     N = len(group_letters)
@@ -55,32 +55,21 @@ def coincidence_index(group_letters: list) -> float:
 
     return (numerator / (N * (N - 1)))
 
+@lru_cache(maxsize=None)
 def cindex_method(texto_codificado):
     cantidad_grupos = len(texto_codificado)+1
 
-    grupos = [[[] for _ in range(grupo)]
-              for grupo in range(cantidad_grupos)]
-
-    for index_letra, letra in enumerate(texto_codificado):
-        for grupo in range(cantidad_grupos):
-            for index in range(grupo):
-                if index_letra % grupo == index:
-                    grupos[grupo][index].append(letra)
-
-    grupos = grupos[1:]
-
     indices_coincidencia = {}
-    for grupo in grupos:
-        indices_coincidencia[len(grupo)] = sum(
-            coincidence_index(subgrupo) for subgrupo in grupo)/len(grupo)
+    for grupo in range(1, cantidad_grupos):
+        indices_coincidencia[grupo] = sum(
+            coincidence_index(texto_codificado[index::grupo]) for index in range(grupo))/grupo
 
     for key in indices_coincidencia.keys():
         if indices_coincidencia[key + 1] / indices_coincidencia[key] > 1.45:
             return key + 1
 
 
-
-def find_length(texto_codificado, method='cindex'):
+def find_length(texto_codificado, method='gcd'):
     if method == 'cindex':
         return cindex_method(texto_codificado)
     elif method == 'gcd':

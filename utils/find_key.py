@@ -3,7 +3,7 @@ from fuzzywuzzy import fuzz
 from utils.vigenere import decode, get_key, sort_by_frecuency
 
 
-def find_key(texto, largo_clave, lang):
+def find_key(texto, largo_clave, lang) -> str:
 
     langs = {'ESP': 'SRNDLC',
              'ENG': 'ETAIONSHRDLUCM'}
