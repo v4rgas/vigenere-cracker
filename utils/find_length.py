@@ -55,30 +55,35 @@ def coincidence_index(group_letters: list) -> float:
 
     return (numerator / (N * (N - 1)))
 
+
 def cindex_method(texto_codificado):
     cantidad_grupos = len(texto_codificado)+1
 
-
-    grupos = [[[] for _ in range(grupo)]
-              for grupo in range(cantidad_grupos)]
-
-    for index_letra, letra in enumerate(texto_codificado):
-        for grupo in range(cantidad_grupos):
-            for index in range(grupo):
-                if index_letra % grupo == index:
-                    grupos[grupo][index].append(letra)
-
-    grupos = grupos[1:]
+#     grupos = [[[] for _ in range(grupo)]
+#               for grupo in range(cantidad_grupos)]
+#
+#     for index_letra, letra in enumerate(texto_codificado):
+#         for grupo in range(cantidad_grupos):
+#             for index in range(grupo):
+#                 if index_letra % grupo == index:
+#                     grupos[grupo][index].append(letra)
 
     indices_coincidencia = {}
-    for grupo in grupos:
-        indices_coincidencia[len(grupo)] = sum(
-            coincidence_index(subgrupo) for subgrupo in grupo)/len(grupo)
+    for grupo in range(1, cantidad_grupos):
+        indices_coincidencia[grupo] = sum(
+            coincidence_index(texto_codificado[index::grupo]) for index in range(grupo))/grupo
+
+    print(indices_coincidencia)
+    # grupos = grupos[1:]
+
+    # indices_coincidencia = {}
+    # for grupo in grupos:
+    # indices_coincidencia[len(grupo)] = sum(
+    #     coincidence_index(subgrupo) for subgrupo in grupo)/len(grupo)
 
     for key in indices_coincidencia.keys():
         if indices_coincidencia[key + 1] / indices_coincidencia[key] > 1.45:
             return key + 1
-
 
 
 def find_length(texto_codificado, method='cindex'):
