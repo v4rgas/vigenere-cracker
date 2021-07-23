@@ -49,11 +49,10 @@ def coincidence_index(group_letters: list) -> float:
 
     N = len(group_letters)
 
-    coincidence_index = numerator / (N * (N - 1))
+    return numerator / (N * (N - 1))
 
 
 def find_length_cindex(texto_codificado):
-
     cantidad_grupos = len(texto_codificado)
 
 #     lista = []
@@ -72,6 +71,7 @@ def find_length_cindex(texto_codificado):
             for index in range(grupo):
                 if index_letra % grupo == index:
                     grupos[grupo][index].append(letra)
+
     print(grupos[6])
 
 
