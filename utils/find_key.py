@@ -31,7 +31,8 @@ def find_key(texto, largo_clave, lang) -> str:
         for frec_letter, _ in sorted_chunck:
             for frecuent_letter in frecuent_letters:
 
-                # Se generan posibles distribuciones asumiendo que cada una de las letras
+                # Se generan posibles distribuciones haciendo claves
+                # asumiendo que cada una de las letras
                 # mas frecuentes en el texto corresponde a
                 # cada una de las letras mas frecuentes en ingles
 
@@ -40,10 +41,13 @@ def find_key(texto, largo_clave, lang) -> str:
                 letters = ''.join(
                     map(lambda x: decode(x, possible_key_letter)[1], letters))
 
-                # Luego com fuzz.ratio (distancia entre strings) medimos que tan parecidas
+                # Luego com fuzz.ratio (distancia entre strings,
+                # ediciones que llevan de una a otra) medimos que tan parecidas
                 # son estas distribuciones a las letras más frecuentes en ingles
+
                 ratio = fuzz.ratio(''.join(letters), frecuent_letters)
 
+                # Cual es la clave que nos da una distribucion mas similar a la de ingles?
                 if ratio > max_similarity:
                     # Nos quedamos con la letra que causa la distribucion más parecida
                     max_similarity = ratio

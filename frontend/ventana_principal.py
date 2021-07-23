@@ -83,7 +83,7 @@ class VentanaPrincipal(QWidget):
         self.tabla_largo.setEditTriggers(QTableWidget.NoEditTriggers)
         self.tabla_largo.setRowCount(4)
         self.tabla_largo.setColumnCount(2)
-        self.tabla_largo.setHorizontalHeaderLabels(['Distancia', 'Frecuencia'])
+        self.tabla_largo.setHorizontalHeaderLabels(['Divisores', 'Frecuencia'])
         self.tabla_largo.horizontalHeader().setStretchLastSection(True)
         self.tabla_largo.horizontalHeader().setSectionResizeMode(
             QHeaderView.Stretch)
