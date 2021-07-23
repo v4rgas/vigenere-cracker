@@ -55,14 +55,18 @@ def get_key(encr_letter, deencr_letter):
     return alfabeto[diff]
 
 
-def most_probable_length(largos_posibles, tolerancia = 0.15):
+def most_probable_length(largos_posibles, tolerancia = 0.25):
 
+    lista_factibles = []
     for index in range(len(largos_posibles) - 1):
         num, frec = largos_posibles[index]
         _, frec2 = largos_posibles[index+1]
 
-        if frec < frec2*(1-tolerancia):
-            return num
+        if tolerancia < frec2 / frec:
+            lista_factibles.append(num)
+    
+    if lista_factibles:
+        return max(lista_factibles)
 
     return largos_posibles[0][0]
 
