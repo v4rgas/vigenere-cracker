@@ -15,32 +15,41 @@ def nomio_finder(texto_codificado: str, length: int):
 # Recibe el path del texto codificado y returna una lista con la (DISTANCA, FRECUENCIA)
 
 
-def find_length(texto_codificado):
-    lista_ordenada = nomio_finder(texto_codificado, 3)
-    lista_ordenada.update(nomio_finder(texto_codificado, 2))
+# def find_length(texto_codificado):
+#     lista_ordenada = nomio_finder(texto_codificado, 3)
+#     lista_ordenada.update(nomio_finder(texto_codificado, 2))
 
-    distances_dict = defaultdict(int)
-    for indexes in lista_ordenada.values():
-        for index in range(len(indexes) - 1):
-            distances_dict[indexes[index + 1] - indexes[index]] += 1
+#     distances_dict = defaultdict(int)
+#     for indexes in lista_ordenada.values():
+#         for index in range(len(indexes) - 1):
+#             distances_dict[indexes[index + 1] - indexes[index]] += 1
 
-    indexes_distance = sorted([(key, value) for key, value in distances_dict.items(
-    )], key=lambda x: x[1], reverse=True)[:15]
+#     indexes_distance = sorted([(key, value) for key, value in distances_dict.items(
+#     )], key=lambda x: x[1], reverse=True)[:15]
 
-    divisores = []
-    lista_distancias = [tupla[0] for tupla in indexes_distance]
+#     divisores = []
+#     lista_distancias = [tupla[0] for tupla in indexes_distance]
 
-    for index in range(2, len(lista_distancias)):
-        for combination in combinations(lista_distancias, index):
-            gcd_variable = reduce(gcd, combination)
-            if gcd_variable != 1:
-                divisores.append(gcd_variable)
+#     for index in range(2, len(lista_distancias)):
+#         for combination in combinations(lista_distancias, index):
+#             gcd_variable = reduce(gcd, combination)
+#             if gcd_variable != 1:
+#                 divisores.append(gcd_variable)
 
-    return sort_by_frecuency(divisores)
+#     return sort_by_frecuency(divisores)
 
+def coincidence_index(group_letters: list) -> float:
+    dictionary_letters = defaultdict(str)
+    for letter in group_letters:
+        dictionary_letters[letter] += 1
 
-def coincidence_index(list):
-    pass
+    numerator = 0
+    for frecuency in dictionary_letters.values():
+        numerator += frecuency * (frecuency - 1)
+
+    N = len(group_letters)
+
+    coincidence_index = numerator / (N * (N - 1))
 
 
 def find_length_cindex(texto_codificado):
