@@ -3,6 +3,9 @@ from utils.find_length import find_length
 from utils.vigenere import decode, encode, most_probable_length
 
 
+texto = {'cindex': 'original_text2.txt', 'gcd': 'original_text.txt'}
+
+
 def letras_iguales(palabra_1, palabra_2):
     cantidad_iguales = sum(
         letra_1 == letra_2 for letra_1, letra_2 in zip(palabra_1, palabra_2)
@@ -12,11 +15,14 @@ def letras_iguales(palabra_1, palabra_2):
 
 
 if __name__ == '__main__':
-    CLAVE = 'HOLARATONASD'
+    CLAVE = 'YAORAESTOIAQUIDAWDEADKHGJ'
+    # El método puede ser o gdc o cindex
     METHOD = 'cindex'
+    # Se diferencia el texto para cada método dada su eficiencia
+    TEXTO = texto[METHOD]
     print(len(CLAVE))
 
-    with open('original_text2.txt', 'r') as text:
+    with open(TEXTO, 'r') as text:
         texto = text.read()
 
     texto_codificado, all_caps_text = encode(mensaje=texto, clave=CLAVE)
