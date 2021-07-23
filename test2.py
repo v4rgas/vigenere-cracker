@@ -21,12 +21,12 @@ texto = read_text()
 
 @lru_cache(maxsize=None)
 def func():
-    with open('stats5.csv', 'w', newline='') as f:
+    with open('stats_tolerancia.csv', 'w', newline='') as f:
         fwriter = writer(f)
         fwriter.writerow(('largo de la clave', 'cantidad de palabras',
                          'semejanza entre claves', 'tiempo transcurrido'))
-        for key_length in range(5, 250, 5):
-            for cant_palabra in range(100, 20000, 100):
+        for key_length in range(5, 300, 5):
+            for cant_palabra in range(15000, 20000, 100):
 
                 start_time = time()
 
@@ -41,6 +41,5 @@ def func():
                 finish_time = time()-start_time
                 fwriter.writerow(
                     (key_length, cant_palabra, semejanza_claves, finish_time))
-
 
 func()
