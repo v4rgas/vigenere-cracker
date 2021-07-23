@@ -49,7 +49,7 @@ def coincidence_index(group_letters: list) -> float:
 
     N = len(group_letters)
 
-    return numerator / (N * (N - 1))
+    return 26 * numerator / (N * (N - 1))
 
 
 def find_length_cindex(texto_codificado):
