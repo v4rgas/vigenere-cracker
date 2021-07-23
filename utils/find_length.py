@@ -45,14 +45,25 @@ def coincidence_index(list):
 
 def find_length_cindex(texto_codificado):
 
-    largo_codificado = len(texto_codificado)
+    cantidad_grupos = len(texto_codificado)
 
-    lista = []
-    for cantidad_grupo in range(largo_codificado):
-        grupos = [[texto_codificado[index] for index in range(
-            largo_codificado) if index % cantidad_grupo == offset] for offset in range(cantidad_grupo)]
+#     lista = []
+#     for cantidad_grupo in range(cantidad_grupos):
+#
+#         grupos = [[texto_codificado[index] for index in range(
+#             cantidad_grupos) if index % cantidad_grupo == offset] for offset in range(cantidad_grupo)]
+#
+#         lista.append(grupos)
 
-        lista.append(grupos)
+    grupos = [[[] for _ in range(grupo)]
+              for grupo in range(cantidad_grupos)]
+
+    for index_letra, letra in enumerate(texto_codificado):
+        for grupo in range(1, cantidad_grupos):
+            for index in range(grupo):
+                if index_letra % grupo == index:
+                    grupos[grupo][index].append(letra)
+    print(grupos[6])
 
 
 if __name__ == "__main__":
