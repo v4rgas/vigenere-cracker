@@ -12,22 +12,24 @@ def letras_iguales(palabra_1, palabra_2):
 
 
 if __name__ == '__main__':
-    CLAVE = 'HOLARATONASDAJKDKSADJASHDAAADFBSLFBKJFBHJASDBSDJNSADKJASD'
+    CLAVE = 'HOLARATONASDAJKDKSADJASHDSAKLJDASOIDJASKLDJQWEOOIASDSAJ'
+    METHOD = 'cindex'
     print(len(CLAVE))
 
-    with open('original_text.txt', 'r') as text:
+    with open('original_text2.txt', 'r') as text:
         texto = text.read()
 
     texto_codificado, all_caps_text = encode(mensaje=texto, clave=CLAVE)
 
-    with open('encoded_text.txt', 'w') as f:
+    with open('encoded_text.txt2', 'w') as f:
         f.write(texto_codificado)
 
-    largos_posibles = find_length(all_caps_text)
+    largos_posibles = find_length(all_caps_text, method=METHOD)
     print(largos_posibles)
 
-    largo = most_probable_length(largos_posibles)
-    print(f'Grado de verdad del largo que se dedujo: {largo == len(CLAVE)}')
+    if METHOD == 'gcd':
+        largo = most_probable_length(largos_posibles)
+        print(f'Grado de verdad del largo que se dedujo: {largo == len(CLAVE)}')
 
     clave = find_key(all_caps_text, largo_clave=largo, lang='ENG')
     print(clave, letras_iguales(clave, CLAVE))
