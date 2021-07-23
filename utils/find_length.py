@@ -58,7 +58,6 @@ def coincidence_index(group_letters: list) -> float:
 def cindex_method(texto_codificado):
     cantidad_grupos = len(texto_codificado)+1
 
-
     grupos = [[[] for _ in range(grupo)]
               for grupo in range(cantidad_grupos)]
 
