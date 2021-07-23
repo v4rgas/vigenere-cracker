@@ -6,16 +6,18 @@ from functools import lru_cache
 
 from utils.vigenere import sort_by_frecuency
 
-
+#GCD
 def nomio_finder(texto_codificado: str, length: int):
     nomio_dict = defaultdict(list)
     for index in range(len(texto_codificado)):
         nomio_dict[texto_codificado[index: index + length]].append(index)
     return nomio_dict
 
-# Recibe el path del texto codificado y returna una lista con la (DISTANCA, FRECUENCIA)
+#Usando todas las distancias que habían entre los patrones que se repetían, se hizo una tabla de frecuencia (lista de tuplas) 
+#de la forma (divisor, frecuencia). Así, esta función nos devuelve esta tabla que contiene a todos números que dividen a las
+#distancias ordenados de mayor a menor
 @lru_cache(maxsize=None)
-def gcd_method(texto_codificado):
+def gcd_method(texto_codificado: str) -> list:
     lista_ordenada = nomio_finder(texto_codificado, 3)
     lista_ordenada.update(nomio_finder(texto_codificado, 2))
 
@@ -36,8 +38,9 @@ def gcd_method(texto_codificado):
             if gcd_variable != 1:
                 divisores.append(gcd_variable)
 
-    return sort_by_frecuency(divisores)
+    return sort_by_frecuency(divisores) #Esta función devuelve una lista ordenada
 
+#Coincidence Index (CINDEX)
 @lru_cache(maxsize=None)
 def coincidence_index(group_letters: list) -> float:
 

@@ -15,7 +15,7 @@ def letras_iguales(palabra_1, palabra_2):
 
 
 if __name__ == '__main__':
-    CLAVE = 'YAORAESTOIAQUIDAWDEADKHGJ'
+    CLAVE = 'dsakdjakds'.upper()
     # El método puede ser o gdc o cindex
     METHOD = 'cindex'
     # Se diferencia el texto para cada método dada su eficiencia
