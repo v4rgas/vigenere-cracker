@@ -23,16 +23,16 @@ if __name__ == '__main__':
     with open('encoded_text.txt', 'w') as f:
         f.write(texto_codificado)
 
-    largos_posibles = find_length(all_caps_text)
-    print(largos_posibles)
+    largos_posibles = find_length(all_caps_text, method='cindex')
+    # print(largos_posibles)
 
-    largo = most_probable_length(largos_posibles)
-    print(f'Grado de verdad del largo que se dedujo: {largo == len(CLAVE)}')
+    # largo = most_probable_length(largos_posibles)
+    # print(f'Grado de verdad del largo que se dedujo: {largo == len(CLAVE)}')
 
-    clave = find_key(all_caps_text, largo_clave=largo, lang='ENG')
-    print(clave, letras_iguales(clave, CLAVE))
-
-    texto_decodificado, _ = decode(mensaje=texto_codificado, clave=clave)
-    with open('decoded_text.txt', 'w') as f:
-        print('escribiendo')
-        f.write(texto_decodificado)
+#     clave = find_key(all_caps_text, largo_clave=largo, lang='ENG')
+#     print(clave, letras_iguales(clave, CLAVE))
+#
+#     texto_decodificado, _ = decode(mensaje=texto_codificado, clave=clave)
+#     with open('decoded_text.txt', 'w') as f:
+#         print('escribiendo')
+#         f.write(texto_decodificado)
